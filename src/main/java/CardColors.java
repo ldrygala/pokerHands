@@ -1,20 +1,20 @@
-import java.util.HashMap;
-import java.util.Map;
-
 public enum CardColors {
-	CLUBS, DIAMONDS, SPADES, HEARTS;
-	private static Map<Character, CardColors> cardsColorMap;
+    CLUBS('C'), DIAMONDS('D'), SPADES('S'), HEARTS('H');
 
-	static {
-		cardsColorMap = new HashMap<Character, CardColors>();
-		cardsColorMap.put('C', CLUBS);
-		cardsColorMap.put('D', DIAMONDS);
-		cardsColorMap.put('S', SPADES);
-		cardsColorMap.put('H', HEARTS);
-	}
+    private char stringRepresentation;
 
-	public static CardColors parseColor(char charAt) {
-		return cardsColorMap.get(charAt);
-	}
+    CardColors(char stringRepresentation) {
+        this.stringRepresentation = stringRepresentation;
+    }
+
+
+    public static CardColors parseColor(char toParse) {
+        for (CardColors color : CardColors.values()) {
+            if (toParse == color.stringRepresentation) {
+                return color;
+            }
+        }
+        throw new IllegalArgumentException();
+    }
 
 }

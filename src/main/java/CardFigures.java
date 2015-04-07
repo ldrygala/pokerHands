@@ -1,34 +1,30 @@
-import java.util.HashMap;
-import java.util.Map;
-
 public enum CardFigures {
-	TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE;
 
-	private static Map<Character, CardFigures> cardsFiguresMap;
+    TWO('2', 2), THREE('3', 3), FOUR('4', 4), FIVE('5', 5), SIX('6', 6), SEVEN('7', 7), EIGHT('8', 8), NINE('9', 9), TEN('T', 11), JACK('J', 12), QUEEN('Q', 13), KING('K', 14), ACE('A', 15);
 
-	static {
-		cardsFiguresMap = new HashMap<Character, CardFigures>();
-		cardsFiguresMap.put('2', TWO);
-		cardsFiguresMap.put('3', THREE);
-		cardsFiguresMap.put('4', FOUR);
-		cardsFiguresMap.put('5', FIVE);
-		cardsFiguresMap.put('6', SIX);
-		cardsFiguresMap.put('7', SEVEN);
-		cardsFiguresMap.put('8', EIGHT);
-		cardsFiguresMap.put('9', NINE);
-		cardsFiguresMap.put('T', TEN);
-		cardsFiguresMap.put('J', JACK);
-		cardsFiguresMap.put('Q', QUEEN);
-		cardsFiguresMap.put('K', KING);
-		cardsFiguresMap.put('A', ACE);
-	}
+    private char stringRepresentation;
+    private int prio;
 
-	public Card of(CardColors color) {
-		return new Card(this, color);
-	}
+    CardFigures(char stringRepresentation, int prio) {
+        this.stringRepresentation = stringRepresentation;
+        this.prio = prio;
+    }
 
-	public static CardFigures parseFigure(char charAt) {
-		return cardsFiguresMap.get(charAt);
-	}
+    public Card of(CardColors color) {
+        return new Card(this, color);
+    }
+
+    public int getPrio() {
+        return prio;
+    }
+
+    public static CardFigures parseFigure(char toParse) {
+        for (CardFigures figure : CardFigures.values()) {
+            if (toParse == figure.stringRepresentation) {
+                return figure;
+            }
+        }
+        throw new IllegalArgumentException();
+    }
 
 }
